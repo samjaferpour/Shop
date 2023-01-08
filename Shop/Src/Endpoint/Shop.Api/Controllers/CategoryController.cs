@@ -17,9 +17,9 @@ namespace Shop.Api.Controllers
         }
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> ShowAllCategories(CancellationToken cancellationToken)
+        public async Task<IActionResult> ShowAllCategories()//(CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            //cancellationToken.ThrowIfCancellationRequested();
             var result = await _service.ShowAllCategoriesAsync();
             if (result == null)
             {

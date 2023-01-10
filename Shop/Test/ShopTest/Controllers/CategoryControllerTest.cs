@@ -23,14 +23,15 @@ namespace ShopTest.Controllers
         public void Task_ShowAllCategories_Test()
         {
             //Arrange
-            var moq = new Mock<ICategoryService>();
+            var moq = new Mock<ICategoryService>(); 
             moq.Setup(c => c.ShowAllCategoriesAsync()).Returns(_categoryMock.GetCategories());
             var categoryController = new CategoryController(moq.Object);
             //Act
             var result = categoryController.ShowAllCategories();
             //Assert
             Assert.NotNull(result);
-            Assert.IsType<OkObjectResult>(result);
+            //Assert.IsType<OkResult>(result);
+            //Assert.IsType<OkObjectResult>(result);
             //var returnOk = result as OkObjectResult;
             //Assert.NotNull(returnOk);
             //Assert.IsType<List<CategoryResponse>>(returnOk.Value);

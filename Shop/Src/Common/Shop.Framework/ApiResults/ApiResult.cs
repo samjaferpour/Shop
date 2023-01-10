@@ -19,22 +19,22 @@ namespace Shop.Framework.ApiResults
             Message = message;
         }
         #region Implicit Operators
-        public static implicit operator ApiResult(OkResult result)
-        {
-            return new ApiResult(true, ApiResultStatusCode.Success);
-        }
-        public static implicit operator ApiResult(ContentResult result)
-        {
-            return new ApiResult(true, ApiResultStatusCode.Success, result.Content);
-        }
-        public static implicit operator ApiResult(NotFoundResult result)
-        {
-            return new ApiResult(false, ApiResultStatusCode.NotFound);
-        }
-        public static implicit operator(BadRequestResult result)
-        {
-            return new ApiResult(false, ApiResultStatusCode.BadRequest);
-        }
+        //public static implicit operator ApiResult(OkResult result)
+        //{
+        //    return new ApiResult(true, ApiResultStatusCode.Success);
+        //}
+        //public static implicit operator ApiResult(ContentResult result)
+        //{
+        //    return new ApiResult(true, ApiResultStatusCode.Success, result.Content);
+        //}
+        //public static implicit operator ApiResult(NotFoundResult result)
+        //{
+        //    return new ApiResult(false, ApiResultStatusCode.NotFound);
+        //}
+        //public static implicit operator(BadRequestResult result)
+        //{
+        //    return new ApiResult(false, ApiResultStatusCode.BadRequest);
+        //}
         #endregion
     }
 }

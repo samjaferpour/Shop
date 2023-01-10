@@ -1,4 +1,7 @@
-﻿using Shop.Application.Services;
+﻿using FluentValidation;
+using Shop.Api.Validations;
+using Shop.Application.Services;
+using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Repositories;
 using Shop.Contract.Interfaces.Services;
 using Shop.Persistence.Repositories;
@@ -22,6 +25,10 @@ namespace Shop.Api.Helper
         public static void AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
+        }
+        public static void AddValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<CategoryRequest>, CategoryRequestValidator>();
         }
     }
 }

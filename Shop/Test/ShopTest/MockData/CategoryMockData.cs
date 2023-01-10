@@ -12,7 +12,7 @@ namespace ShopTest.MockData
     {
         public async Task<IEnumerable<CategoryResponse>> GetCategories()
         {
-            var categories = new Filler<CategoryResponse>().Create(100);
+            var categories =  new Filler<CategoryResponse>().Create(5);
             return categories;
         }
 

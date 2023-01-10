@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ShopDbContext>(options => options.UseSqlServer(bui
 builder.Services.AddRepositories();
 builder.Services.AddUnitOfWork();
 builder.Services.AddCustomServices();
+builder.Services.AddValidators();
 
 
 var app = builder.Build();

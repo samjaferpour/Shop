@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Services;
@@ -10,16 +11,18 @@ namespace Shop.Api.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _service;
+        private readonly IValidator<CategoryRequest> _validator;
 
-        public CategoryController(ICategoryService service)
+        public CategoryController(ICategoryService service, IValidator<CategoryRequest> validator)
         {
             this._service = service;
+            this._validator = validator;
         }
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> ShowAllCategories()//(CancellationToken cancellationToken)
+        public async Task<IActionResult> ShowAllCategories(CancellationToken cancellationToken)
         {
-            //cancellationToken.ThrowIfCancellationRequested();
+            cancellationToken.ThrowIfCancellationRequested();
             var result = await _service.ShowAllCategoriesAsync();
             if (result == null)
             {
@@ -31,12 +34,17 @@ namespace Shop.Api.Controllers
         [Route("[action]")]
         public async Task<IActionResult> AddNewCategory([FromBody] CategoryRequest request)
         {
+            var validatorResult = _validator.Validate(request);
+            if (!validatorResult.IsValid)
+            {
+                throw new Exception(validatorResult.Errors[0].ErrorMessage.ToString());
+            }
             var result = await _service.AddCategoryAsync(request);
             return Ok(result);
         }
         [HttpGet]
         [Route("[action]/{id:guid}")]
-        public async Task<IActionResult> FindCategoryById([FromRoute]Guid id)
+        public async Task<IActionResult> FindCategoryById([FromRoute] Guid id)
         {
             var result = await _service.FindCategoryByIdAsync(id);
             if (result == null)

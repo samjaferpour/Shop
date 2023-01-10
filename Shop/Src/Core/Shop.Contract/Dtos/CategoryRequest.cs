@@ -8,6 +8,6 @@ namespace Shop.Contract.Dtos
 {
     public class CategoryRequest
     {
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
     }
 }

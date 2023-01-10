@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Shop.Api.Controllers;
+using Shop.Api.Validations;
 using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Services;
 using ShopTest.MockData;
@@ -14,10 +16,12 @@ namespace ShopTest.Controllers
 {
     public class CategoryControllerTest
     {
+        private IValidator<CategoryRequestValidator> _validator;
         private CategoryMockData _categoryMock;
-        public CategoryControllerTest()
+        public CategoryControllerTest(IValidator<CategoryRequestValidator> validator)
         {
             this._categoryMock = new CategoryMockData();
+            this._validator = validator;
         }
         [Fact]
         public void Task_ShowAllCategories_Test()
@@ -25,9 +29,11 @@ namespace ShopTest.Controllers
             //Arrange
             var moq = new Mock<ICategoryService>(); 
             moq.Setup(c => c.ShowAllCategoriesAsync()).Returns(_categoryMock.GetCategories());
-            var categoryController = new CategoryController(moq.Object);
+            
+            var categoryController = new CategoryController(moq.Object, _validator);
+            var cancellationToken = new CancellationToken();
             //Act
-            var result = categoryController.ShowAllCategories();
+            var result = categoryController.ShowAllCategories(cancellationToken);
             //Assert
             Assert.NotNull(result);
             //Assert.IsType<OkResult>(result);

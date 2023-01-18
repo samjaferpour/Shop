@@ -1,4 +1,5 @@
-﻿using Shop.Contract.Dtos;
+﻿using AutoMapper;
+using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Repositories;
 using Shop.Contract.Interfaces.Services;
 using Shop.Domain.Entities;
@@ -12,21 +13,24 @@ namespace Shop.Application.Services
 {
     public class CategoryService : ICategoryService
     {
+        private readonly IMapper _mapper;
         private readonly ICategoryRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryService(ICategoryRepository repository, IUnitOfWork unitOfWork)
+        public CategoryService(IMapper mapper, ICategoryRepository repository, IUnitOfWork unitOfWork)
         {
+            this._mapper = mapper;
             this._repository = repository;
             this._unitOfWork = unitOfWork;
         }
 
         public async Task<CategoryResponse> AddCategoryAsync(CategoryRequest request)
         {
-            var category = new Category
-            {
-                Name = request.Name,
-            };
+            //var category = new Category
+            //{
+            //    Name = request.Name,
+            //};
+            var category = _mapper.Map<Category>(request);
             await _repository.InsertAsync(category);
             await _unitOfWork.CommitChangesAsync();
             var categoryResponse = new CategoryResponse

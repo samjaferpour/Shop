@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using Shop.Api.Validations;
 using Shop.Application.Services;
 using Shop.Contract.Dtos;
@@ -29,6 +30,17 @@ namespace Shop.Api.Helper
         public static void AddValidators(this IServiceCollection services)
         {
             services.AddScoped<IValidator<CategoryRequest>, CategoryRequestValidator>();
+        }
+        public static void AddAoutomapper(this IServiceCollection services)
+        {
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

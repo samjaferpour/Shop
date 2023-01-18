@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Contract.Dtos;
@@ -8,6 +9,7 @@ namespace Shop.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _service;

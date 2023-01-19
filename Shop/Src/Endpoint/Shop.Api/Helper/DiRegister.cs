@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using MediatR;
 using Shop.Api.Validations;
+using Shop.Application.CQRS.CategoryFeatures.Commands;
 using Shop.Application.Services;
 using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Repositories;
@@ -41,6 +43,10 @@ namespace Shop.Api.Helper
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+        }
+        public static void AddMediator(this IServiceCollection services)
+        {
+            services.AddMediatR(typeof(AddCategoryCommand));
         }
     }
 }

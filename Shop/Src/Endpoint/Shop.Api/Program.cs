@@ -1,7 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Api.Helper;
+using Shop.Application.CQRS.CategoryFeatures.Commands;
 using Shop.Persistence.Contexts;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,7 @@ builder.Services.AddCustomServices();
 builder.Services.AddValidators();
 builder.Services.AddCors();
 builder.Services.AddAoutomapper();
+builder.Services.AddMediator();
 
 // Add CORS
 //builder.Services.AddCors(options =>

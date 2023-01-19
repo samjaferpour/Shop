@@ -18,15 +18,24 @@ namespace Shop.Api.Controllers
             this._mediator = mediator;
         }
         [HttpGet]
+        [Route("[controller]")]
         public async Task<IActionResult> ShowAllCategories()
         {
             var result = await _mediator.Send(new GetAllCategoriesQuery());
             return Ok(result);
         }
         [HttpPost]
+        [Route("[controller]")]
         public async Task<IActionResult> AddCategory(AddCategoryCommand command)
         {
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("[controller]/id")]
+        public async Task<IActionResult> CategoryDetails([FromQuery] GetCategoryByIdQuery query)
+        {
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }

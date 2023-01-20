@@ -14,7 +14,8 @@ namespace Shop.Api.Controllers
 
 
         public CQRSCategoryController(IMediator mediator)
-        {      ;
+        {
+            ;
             this._mediator = mediator;
         }
         [HttpGet]
@@ -26,7 +27,7 @@ namespace Shop.Api.Controllers
         }
         [HttpPost]
         [Route("[controller]")]
-        public async Task<IActionResult> AddCategory(AddCategoryCommand command)
+        public async Task<IActionResult> AddCategory([FromBody] AddCategoryCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
@@ -36,6 +37,20 @@ namespace Shop.Api.Controllers
         public async Task<IActionResult> CategoryDetails([FromQuery] GetCategoryByIdQuery query)
         {
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        [HttpDelete]
+        [Route("[controller]/id")]
+        public async Task<IActionResult> RemoveCategory([FromQuery] RemoveCategoryByIdCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok("Successfully Removed");
+        }
+        [HttpPut]
+        [Route("[controller]/id")]
+        public async Task<IActionResult> EditCategory([FromBody] EditByIdCommand command)
+        {
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

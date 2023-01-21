@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.CQRS.CategoryFeatures.Commands;
 using Shop.Application.CQRS.CategoryFeatures.Queries;
+using Shop.Framework.ApiResults;
 
 namespace Shop.Api.Controllers
 {
@@ -20,7 +21,7 @@ namespace Shop.Api.Controllers
         }
         [HttpGet]
         [Route("[controller]")]
-        public async Task<IActionResult> ShowAllCategories()
+        public async Task<ApiResult<IEnumerable<GetAllCategoriesQueryResponse>>> ShowAllCategories()
         {
             var result = await _mediator.Send(new GetAllCategoriesQuery());
             return Ok(result);
@@ -34,7 +35,7 @@ namespace Shop.Api.Controllers
         }
         [HttpGet]
         [Route("[controller]/id")]
-        public async Task<IActionResult> CategoryDetails([FromQuery] GetCategoryByIdQuery query)
+        public async Task<ApiResult<GetCategoryByIdResponse>> CategoryDetails([FromQuery] GetCategoryByIdQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);

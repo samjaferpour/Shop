@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Shop.Framework\Shop.Framework.csproj" />
     <ProjectReference Include="..\..\Core\Shop.Application\Shop.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Shop.Persistence\Shop.Persistence.csproj" />
   </ItemGroup>

@@ -14,16 +14,22 @@ namespace Shop.Api.Controllers
     {
         private readonly ICategoryService _service;
         private readonly IValidator<CategoryRequest> _validator;
+        private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ICategoryService service, IValidator<CategoryRequest> validator)
+        public CategoryController(ICategoryService service,
+            IValidator<CategoryRequest> validator,
+            ILogger<CategoryController> logger)
         {
             this._service = service;
             this._validator = validator;
+            this._logger = logger;
         }
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> ShowAllCategories(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("اطلاعات مورد نظر");
+            _logger.LogError("فراخوانی سرویس نمایش محصولات توسط کاربر");
             cancellationToken.ThrowIfCancellationRequested();
             var result = await _service.ShowAllCategoriesAsync();
             if (result == null)

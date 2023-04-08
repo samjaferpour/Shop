@@ -1,10 +1,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Shop.Api.Helper;
 using Shop.Application.CQRS.CategoryFeatures.Commands;
 using Shop.Persistence.Contexts;
 using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,18 @@ builder.Services.AddSwaggerGen();
 
 // Add Database Contexts
 builder.Services.AddDbContext<ShopDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ShopConStr")));
+
+// Add Serilog
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Seq("http://localhost:5341",
+        Serilog.Events.LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 
 // Ioc Register
 builder.Services.AddRepositories();
@@ -57,6 +71,7 @@ if (app.Environment.IsDevelopment())
         options => options.WithOrigins("MyPolicy").AllowAnyMethod()
     );
 }
+
 
 app.UseHttpsRedirection();
 

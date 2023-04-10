@@ -10,6 +10,7 @@ namespace Shop.Contract.Interfaces.Services
     public interface ICategoryService
     {
         Task<CategoryResponse> AddCategoryAsync(CategoryRequest request);
+        Task<AddBulkCategoryResponse> AddBulkCategoryAsync(BulkCategoryRequest request);
         Task<CategoryResponse> EditCategoryAsync(Guid id, CategoryRequest request);
         Task<CategoryResponse> RemoveCategoryAsync(Guid id);
         Task<CategoryResponse> FindCategoryByIdAsync(Guid id);

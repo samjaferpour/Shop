@@ -47,6 +47,7 @@ builder.Services.AddValidators();
 builder.Services.AddCors();
 builder.Services.AddAoutomapper();
 builder.Services.AddMediator();
+builder.Services.AddRabbitMqPublisher();
 
 // Add CORS
 //builder.Services.AddCors(options =>

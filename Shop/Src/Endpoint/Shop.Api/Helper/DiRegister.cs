@@ -7,12 +7,17 @@ using Shop.Application.Services;
 using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Repositories;
 using Shop.Contract.Interfaces.Services;
+using Shop.Framework.MessageBrokers;
 using Shop.Persistence.Repositories;
 
 namespace Shop.Api.Helper
 {
     public static class DiRegister
     {
+        public static void AddRabbitMqPublisher(this IServiceCollection services)
+        {
+            services.AddTransient<IRabbitMqPublisher, RabbitMqPublisher>();
+        }
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();

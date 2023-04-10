@@ -50,6 +50,15 @@ namespace Shop.Api.Controllers
             var result = await _service.AddCategoryAsync(request);
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> AddBulkCategory([FromBody] BulkCategoryRequest request)
+        {
+            var result = await _service.AddBulkCategoryAsync(request);
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("[action]/{id:guid}")]
         public async Task<IActionResult> FindCategoryById([FromRoute] Guid id)

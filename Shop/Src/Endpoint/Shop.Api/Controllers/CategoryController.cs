@@ -7,9 +7,9 @@ using Shop.Contract.Interfaces.Services;
 
 namespace Shop.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    [EnableCors("MyPolicy")]
+   // [EnableCors("MyPolicy")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _service;
@@ -24,8 +24,13 @@ namespace Shop.Api.Controllers
             this._validator = validator;
             this._logger = logger;
         }
+        [HttpPost]
+        public void add(CategoryRequest request)
+        {
+
+        }
         [HttpGet]
-        [Route("[action]")]
+       // [Route("[action]")]
         public async Task<IActionResult> ShowAllCategories(CancellationToken cancellationToken)
         {
             _logger.LogInformation("اطلاعات مورد نظر");
@@ -39,7 +44,7 @@ namespace Shop.Api.Controllers
             return Ok(result);
         }
         [HttpPost]
-        [Route("[action]")]
+        //[Route("[action]")]
         public async Task<IActionResult> AddNewCategory([FromBody] CategoryRequest request)
         {
             var validatorResult = _validator.Validate(request);
@@ -52,7 +57,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
+        //[Route("[action]")]
         public async Task<IActionResult> AddBulkCategory([FromBody] BulkCategoryRequest request)
         {
             var result = await _service.AddBulkCategoryAsync(request);
@@ -60,7 +65,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/{id:guid}")]
+        //[Route("[action]/{id:guid}")]
         public async Task<IActionResult> FindCategoryById([FromRoute] Guid id)
         {
             var result = await _service.FindCategoryByIdAsync(id);
@@ -71,7 +76,7 @@ namespace Shop.Api.Controllers
             return Ok(result);
         }
         [HttpDelete]
-        [Route("[action]/{id:guid}")]
+        //[Route("[action]/{id:guid}")]
         public async Task<IActionResult> RemoveCategory([FromRoute] Guid id)
         {
             var result = await _service.RemoveCategoryAsync(id);
@@ -82,7 +87,7 @@ namespace Shop.Api.Controllers
             return Ok(result);
         }
         [HttpPut]
-        [Route("[action]/{id:guid}")]
+        //[Route("[action]/{id:guid}")]
         public async Task<IActionResult> EditCategory([FromRoute] Guid id, [FromBody] CategoryRequest request)
         {
             var result = await _service.EditCategoryAsync(id, request);

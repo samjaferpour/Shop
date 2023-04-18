@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Contract.Dtos;
 using Shop.Contract.Interfaces.Repositories;
 using Shop.Contract.Interfaces.Services;
@@ -31,7 +32,7 @@ namespace Shop.Application.Services
             this._unitOfWork = unitOfWork;
             this._publisher = publisher;
         }
-
+        
         public async Task<AddBulkCategoryResponse> AddBulkCategoryAsync(BulkCategoryRequest request)
         {
              List<AddBulkCategoryRequest> requests = new List<AddBulkCategoryRequest>();
